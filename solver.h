@@ -12,6 +12,11 @@ using namespace std;
 class SOLVER{
   public:
 
+    // constructor, destructor
+    
+    Solver();
+    ~Solver();
+
     // grid parameters
     
     int nGrid;
@@ -24,8 +29,6 @@ class SOLVER{
     double cfl;
     double tMax;
 
-    double dt;
-
     // physical parameters
 
     double l;
@@ -37,8 +40,8 @@ class SOLVER{
 
     // states
 
-    vector<double> prevState;
-    vector<double> currState;
+    vector<double> jCurrent;
+    vector<double> jPrevious;
 
     // io parameters
 
@@ -53,9 +56,29 @@ class SOLVER{
     void initStates(vector<double>, vector<double>);
     void initIO(string, double);
 
-    void run(double);
+    void run();
 
   private:
+    
+    // initalisation bools
+
+    bool gridInitialised;
+    bool timeInitialised;
+    bool physicsInitialised;
+    bool statesInitialised;
+    bool ioInitialised;
+
+    // internal parameters
+
+    int nStep;
+    double t;
+    double dt;
+    
+    vector<double> jNext;
+
+    ofstream outFile;
+
+    // run functions
 
     void fluxUpdate();
     void sourceUpdate();
