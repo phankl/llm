@@ -63,12 +63,28 @@ void initIO(string filenameIn, double outputStepIn) {
   ioInitialised = true;
 }
 
+void fluxUpdate() {
+
+}
+
+void printFile() {
+
+  for (int i = 0; i < nGrid; i++) {
+    double x = i * dx;
+    if (x > xMax) x = xMax;
+    outFile << x << " " << jCurrent[i] << endl;
+  }
+
+  outFile << endl;
+}
+
 void run() {
   if (!(gridInitialised && timeInitialised && physicsInitialised && statesInitialised && ioInitialised)) {
     cout << "Simulation not initialised properly!" << endl;
     exit(EXIT_FAILURE);
   }
-  
+
+  double outputCounter = 0.0;
   bool end = false;
   while (!end) {
     
@@ -83,6 +99,16 @@ void run() {
     sourceUpdate();
 
     t += dt;
+    outputCounter += dt;
     nStep++;
+
+    // file output
+
+    if (outputCounter > outputStep)
+      outputCounter = 0.0;
+    if (outputCounter == 0.0)  
+      printFile();
   }
+
+  printFile();
 }
