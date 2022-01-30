@@ -9,10 +9,9 @@
 
 using namespace std;
 
-class SOLVER{
+class Solver{
   public:
-
-    // constructor, destructor
+    // constructor and destructor
     
     Solver();
     ~Solver();
@@ -42,6 +41,8 @@ class SOLVER{
 
     vector<double> jCurrent;
     vector<double> jPrevious;
+
+    vector<double> djCurrent;
 
     // io parameters
 
@@ -80,10 +81,11 @@ class SOLVER{
 
     // run functions
 
+    void calcGradient();
     void fluxUpdate();
     void sourceUpdate();
 
     void printFile();
-}
+};
 
 #endif
