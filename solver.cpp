@@ -22,9 +22,9 @@ void Solver::initGrid(int nGridIn, double xMaxIn) {
   gridInitialised = true;
 }
 
-void Solver::initTime(double cflIn, double tMaxIn) {
+void Solver::initTime(double dtIn, double tMaxIn) {
   
-  cfl = cflIn;
+  dt = dtIn;
   tMax = tMaxIn;
 
   nStep = 0;
@@ -141,9 +141,15 @@ void Solver::run() {
     exit(EXIT_FAILURE);
   }
 
-  // timestep from CFL condition
+  // check if CFL conditions is satisfied
 
-  dt = cfl * dx / waveSpeed;
+  cfl = waveSpeed * dt / dx;
+  double dtMax = dx / waveSpeed;
+  if (cfl > 1.0) {
+    cout << "CFL condition not met! CFL number is " << cfl << "." << endl;
+    cout << "Maximum timestep is " << dtMax << " seconds." << endl;
+    exit(EXIT_FAILURE);
+  }
 
   // inital output
 

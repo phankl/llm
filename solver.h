@@ -25,7 +25,7 @@ class Solver{
 
     // time parameters
 
-    double cfl;
+    double dt;
     double tMax;
 
     // physical parameters
@@ -75,7 +75,7 @@ class Solver{
 
     int nStep;
     double t;
-    double dt;
+    double cfl;
     double e;
     
     vector<double> jNext;
