@@ -34,6 +34,8 @@ class Solver{
     double c;
     double r0;
     double j0;
+    double e0;
+    double omega;
 
     double waveSpeed;
 
@@ -53,7 +55,7 @@ class Solver{
 
     void initGrid(int, double);
     void initTime(double, double);
-    void initPhysics(double, double, double, double);
+    void initPhysics(double, double, double, double, double, double);
     void initStates(vector<double>, vector<double>);
     void initIO(string, double);
 
@@ -74,6 +76,7 @@ class Solver{
     int nStep;
     double t;
     double dt;
+    double e;
     
     vector<double> jNext;
 
